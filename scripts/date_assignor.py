@@ -1,5 +1,8 @@
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+
+
+tz = timezone(timedelta(hours=+9), 'JST')
 
 
 class Assignor(object):
@@ -18,7 +21,7 @@ class Assignor(object):
       sys.exit(1)
 
   def convertUnixtime(self, unixtime):
-    t = datetime.fromtimestamp(unixtime)
+    t = datetime.fromtimestamp(unixtime, tz)
     if 'm' in self.frequency_unit:
       out = datetime(t.year, t.month, t.day, t.hour, int(t.minute / self.frequency_num) * self.frequency_num)
     elif 'h' in self.frequency_unit:
